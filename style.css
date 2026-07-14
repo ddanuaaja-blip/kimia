@@ -1,0 +1,63 @@
+/* Pengaturan Font Utama */
+body {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.comic-font {
+    font-family: 'Fredoka One', cursive;
+}
+
+/* Mekanika Efek Kartu Berputar (3D Flip) */
+.memory-card {
+    perspective: 1000px;
+    position: relative;
+}
+
+.memory-card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.memory-card.flipped .memory-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* KUNCI SOLUSI NUMPUK: Mengunci posisi tumpang tindih secara absolut sempurna */
+.card-front, .card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden; /* Dukungan penuh perangkat iOS / Safari */
+    box-sizing: border-box;
+}
+
+/* Sisi Depan Kartu (Posisi Awal standar) */
+.card-front {
+    transform: rotateY(0deg);
+    -webkit-transform: rotateY(0deg);
+    z-index: 2;
+}
+
+/* Sisi Belakang Kartu (Tersembunyi di balik depan) */
+.card-back {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    z-index: 1;
+}
+
+/* Animasi tambahan saat salah jawab (Shake effect) */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+}
+
+.animate-shake {
+    animation: shake 0.2s ease-in-out 0s 2;
+}
