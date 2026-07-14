@@ -11,6 +11,9 @@ body {
 .memory-card {
     perspective: 1000px;
     position: relative;
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto;
 }
 
 .memory-card-inner {
@@ -25,7 +28,7 @@ body {
     transform: rotateY(180deg);
 }
 
-/* KUNCI SOLUSI NUMPUK: Mengunci posisi tumpang tindih secara absolut sempurna */
+/* Solusi Numpuk: Kartu harus terposisi dengan sempurna */
 .card-front, .card-back {
     position: absolute;
     top: 0;
@@ -33,25 +36,27 @@ body {
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    -webkit-backface-visibility: hidden; /* Dukungan penuh perangkat iOS / Safari */
+    -webkit-backface-visibility: hidden;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Sisi Depan Kartu (Posisi Awal standar) */
+/* Sisi Depan Kartu */
 .card-front {
     transform: rotateY(0deg);
     -webkit-transform: rotateY(0deg);
     z-index: 2;
 }
 
-/* Sisi Belakang Kartu (Tersembunyi di balik depan) */
+/* Sisi Belakang Kartu */
 .card-back {
     transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
     z-index: 1;
 }
 
-/* Animasi tambahan saat salah jawab (Shake effect) */
+/* Animasi Shake effect */
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-6px); }
@@ -60,4 +65,16 @@ body {
 
 .animate-shake {
     animation: shake 0.2s ease-in-out 0s 2;
+}
+
+/* Efek hover untuk kartu di game 2 */
+.memory-card:not(.matched):not(.flipped):hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
+
+/* Memastikan kartu matched tidak bisa diflip */
+.memory-card.matched {
+    pointer-events: none;
+    opacity: 0.8;
 }
